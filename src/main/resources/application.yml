@@ -1,0 +1,59 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: 'Employee Management System'
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/employee
+    username: postgres
+    password: password
+    hikari:
+      connection-timeout: 20000
+      minimum-idle: 10
+      maximum-pool-size: 20
+      idle-timeout: 10000
+      max-lifetime: 30000
+      auto-commit: true
+
+  main:
+    banner-mode: 'off'
+  graphql:
+    graphiql:
+      enabled: true
+    tools:
+      schema-parser-options:
+        introspection-enabled: false
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: /management
+      exposure:
+        include:
+          - info
+          - health
+          - metrics
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+      show-details: always
+    metrics:
+      enabled: true
+  health:
+    db:
+      enabled: false
+  statsd:
+    metrics:
+      export:
+        host: ${DD_AGENT_HOST:172.17.0.1}
+        port: 8125
+        flavor: datadog
+    enable:
+      all: true

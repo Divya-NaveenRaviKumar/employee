@@ -2,6 +2,7 @@ package com.employee.application.service;
 
 import com.employee.domain.model.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class EmployeeService implements EmployeeActions {
     private final JdbcTemplate jdbcTemplate;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public EmployeeService(JdbcTemplate jdbcTemplate) {
+    public EmployeeService(@Qualifier("mainJdbcTemplate") JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -35,7 +36,7 @@ public class EmployeeService implements EmployeeActions {
                 SELECT id, name
                 FROM employee
                 WHERE id = ?
-                 """;
+                """;
         return jdbcTemplate.query(sql, new EmployeeRowMapper(), id)
                 .stream()
                 .findFirst();

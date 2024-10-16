@@ -26,7 +26,7 @@ public class DataSourceConfiguration {
     }
 
     @Bean
-    public JdbcTemplate mainJdbcTemplate(HikariDataSource dataSource) {
+    public JdbcTemplate employeeJdbcTemplate(HikariDataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 }

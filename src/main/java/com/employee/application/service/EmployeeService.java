@@ -16,7 +16,7 @@ public class EmployeeService implements EmployeeActions {
     private final JdbcTemplate jdbcTemplate;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public EmployeeService(@Qualifier("mainJdbcTemplate") JdbcTemplate jdbcTemplate) {
+    public EmployeeService(@Qualifier("employeeJdbcTemplate") JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
